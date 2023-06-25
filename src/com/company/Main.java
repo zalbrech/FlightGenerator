@@ -1,5 +1,6 @@
 package com.company;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -13,15 +14,13 @@ public class Main {
 
         Map<String, Airport> airports = new HashMap<>();
 
-        try(Scanner input = new Scanner(new File("src/info.txt")).useLocale(Locale.US)) {
+        try(Scanner input = new Scanner(new File("src/info.txt")).useLocale(Locale.US);
+            BufferedReader br = new BufferedReader(new FileReader("src/flightTimes.txt"))) {
             String theDelimiter = detectOS();
             input.useDelimiter(theDelimiter); // comma + space delimiter
+            String str = "";
+            String[] line;
 
-//            ArrayList<Airport> airports = new ArrayList<>();
-
-//            while(input.hasNext()) {
-//                System.out.println(input.next());
-//            }
             while(input.hasNext()) {
                 String id = input.next();
 //                System.out.println(id);
@@ -38,14 +37,21 @@ public class Main {
                 double longitude = input.nextDouble();
 //                System.out.println(longitude+"\n\n");
 
-                airports.put(id, new Airport(id, name, city, latitude, longitude));
+                Airport a = new Airport(id, name, city, latitude, longitude);
+                if((str = br.readLine()) != null) {
+                    line = str.split(",\\s");
+                    for(int i = 0; i < line.length; i++) {
+                        String[] item = line[i].split("=");
+                        a.getFlightTimes().put(item[0], Double.parseDouble(item[1]));
+                    }
+                }
+                airports.put(id, a);
             }
-
-//            System.out.println(airports);
         } catch(Exception e) {
             e.printStackTrace();
         }
 
+        //TODO: move to separate method
         for(Map.Entry<String, Airport> a : airports.entrySet()) {
             String abbreviationA = a.getKey();
             Airport airportA = a.getValue();
@@ -58,6 +64,8 @@ public class Main {
             }
             System.out.println(abbreviationA + " => " +airportA.getFlightTimes());
         }
+
+        generateFlights(10);
 
 
 
@@ -106,6 +114,10 @@ public class Main {
             double airspeed = 500.0 / 60.0;
             double distance = calculateDistance(a.getLatitude(), b.getLatitude(), a.getLongitude(), b.getLongitude());
             return Math.ceil((distance / airspeed) + 40);
+        }
+
+        public static void generateFlights(int N) {
+
         }
     }
 
