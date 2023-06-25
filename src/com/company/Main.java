@@ -101,11 +101,11 @@ public class Main {
             return EARTH_RADIUS_IN_MILES * c;
         }
 
-        // calculate flight time based on average speed of 500 mph as well as 30 minutes to board and deplane
+        // calculate flight time based on average speed of 500 mph as well as taxi time
         public static double calculateFlightTime(Airport a, Airport b) {
             double airspeed = 500.0 / 60.0;
             double distance = calculateDistance(a.getLatitude(), b.getLatitude(), a.getLongitude(), b.getLongitude());
-            return Math.ceil((distance / airspeed));
+            return Math.ceil((distance / airspeed) + 40);
         }
     }
 
