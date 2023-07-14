@@ -3,6 +3,7 @@ package com.company;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 public class Main {
@@ -21,32 +22,9 @@ public class Main {
             String[] line;
 
             while(input.hasNext()) {
-                String id = input.next();
-//                System.out.println(id);
+                Airport a = createAirport(input, br);
+                String id = a.getId();
 
-                String name = input.next();
-//                System.out.println(name);
-
-                String city = input.next();
-//                System.out.println(city);
-
-                String timezone = input.next();
-//                System.out.println(timezone);
-
-                double latitude = input.nextDouble();
-//                System.out.println(latitude);
-
-                double longitude = input.nextDouble();
-//                System.out.println(longitude+"\n\n");
-
-                Airport a = new Airport(id, name, city, timezone, latitude, longitude);
-                if((str = br.readLine()) != null) {
-                    line = str.split(",\\s");
-                    for (String s : line) {
-                        String[] item = s.split("=");
-                        a.getFlightTimes().put(item[0], Double.parseDouble(item[1]));
-                    }
-                }
                 airports.put(id, a);
             }
         } catch(Exception e) {
@@ -55,19 +33,23 @@ public class Main {
 
         printAirports();
 
-        //TODO: move to separate method -> populate flight times
-        for(Map.Entry<String, Airport> a : airports.entrySet()) {
-            String abbreviationA = a.getKey();
-            Airport airportA = a.getValue();
-            for(Map.Entry<String, Airport> b : airports.entrySet()) {
-                String abbreviationB = b.getKey();
-                Airport airportB = b.getValue();
-
-                if(abbreviationA.equals(abbreviationB) || airportA.getCity().equals(airportB.getCity())) continue;
-                airportA.getFlightTimes().put(abbreviationB, calculateFlightTime(airportA, airportB));
-            }
-            System.out.println(abbreviationA + " => " +airportA.getFlightTimes());
+        for(Airport a : airports.values()) {
+            System.out.println(a.getFlightTimes());
         }
+
+        //TODO: move to separate method -> populate flight times
+//        for(Map.Entry<String, Airport> a : airports.entrySet()) {
+//            String abbreviationA = a.getKey();
+//            Airport airportA = a.getValue();
+//            for(Map.Entry<String, Airport> b : airports.entrySet()) {
+//                String abbreviationB = b.getKey();
+//                Airport airportB = b.getValue();
+//
+//                if(abbreviationA.equals(abbreviationB) || airportA.getCity().equals(airportB.getCity())) continue;
+//                airportA.getFlightTimes().put(abbreviationB, calculateFlightTime(airportA, airportB));
+//            }
+//            System.out.println(abbreviationA + " => " +airportA.getFlightTimes());
+//        }
 
 
         // map to get flight by id
@@ -90,7 +72,40 @@ public class Main {
 //          }
         }
 
-        //TODO: NOT IMPLEMENTED
+        // Creates Airport object with data from file
+        // TODO: Overload to allow for manual creation. Will need to move populateFlightTimes to another method
+        public static Airport createAirport(Scanner input, BufferedReader br) throws IOException {
+            String str = "";
+            String[] line;
+            String id = input.next();
+//                System.out.println(id);
+
+            String name = input.next();
+//                System.out.println(name);
+
+            String city = input.next();
+//                System.out.println(city);
+
+            String timezone = input.next();
+//                System.out.println(timezone);
+
+            double latitude = input.nextDouble();
+//                System.out.println(latitude);
+
+            double longitude = input.nextDouble();
+//                System.out.println(longitude+"\n\n");
+            Airport a = new Airport(id, name, city, timezone, latitude, longitude);
+
+            if((str = br.readLine()) != null) {
+                line = str.split(",\\s");
+                for (String s : line) {
+                    String[] item = s.split("=");
+                    a.getFlightTimes().put(item[0], Double.parseDouble(item[1]));
+                }
+            }
+            return a;
+        }
+
         public static void printAirports() {
             for(Airport a : airports.values()) {
                 System.out.println(a);
