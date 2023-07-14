@@ -53,6 +53,8 @@ public class Main {
             e.printStackTrace();
         }
 
+        printAirports();
+
         //TODO: move to separate method -> populate flight times
         for(Map.Entry<String, Airport> a : airports.entrySet()) {
             String abbreviationA = a.getKey();
@@ -90,7 +92,9 @@ public class Main {
 
         //TODO: NOT IMPLEMENTED
         public static void printAirports() {
-            // NOT IMPLEMENTED
+            for(Airport a : airports.values()) {
+                System.out.println(a);
+            }
         }
 
         // used to initialize proper regex to handle difference in line ending syntax

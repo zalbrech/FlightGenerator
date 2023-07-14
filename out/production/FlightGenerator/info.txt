@@ -1,27 +1,27 @@
-ATL, Hartsfield-Jackson Atlanta International Airport, Atlanta, 33.640411, -84.419853
-LAX, Los Angeles International Airport, Los Angeles, 33.942791, -118.410042
-ORD, Chicago O'Hare International Airport, Chicago, 41.9803, -87.904724
-DFW, Dallas/Fort Worth International Airport, Dallas/Fort Worth, 32.897480, -97.040443
-DEN, Denver International Airport, Denver, 139.712723, 35.673115
-JFK, John F. Kennedy International Airport, New York, 40.641766, -73.780968
-SFO, San Francisco International Airport, San Fransisco, 37.615223, -122.389977
-SEA, Seattle-Tacoma International Airport, Seattle, 47.443546, -122.301659
-LAS, Las Vegas Airport, Las Vegas, 36.086010, -115.153969
-CLT, Charlotte Douglas International Airport, Charlotte, 35.213890, -80.943054
-EWR, Newark Liberty International Airport, Newark, 40.6895314, -74.1744623
-PHX, Phoenix Sky Harbor International Airport, Phoenix, 33.437269, -112.007788
-IAH, George Bush Intercontinental Airport, Houston, 29.9902199, -95.3367827
-MIA, Miami International Airport, Miami, 25.795865, -80.2870457
-BOS, Boston Logan International Airport, Boston, 42.366978, -71.022362
-MSP, Minneapolis−Saint Paul International Airport, Minneapolis, 44.882763, -93.2104
-DTW, Detroit Metropolitan Wayne County Airport, Detroit, 42.226282, -83.347057
-FLL, Fort Lauderdale-Hollywood International Airport, Fort Lauderdale, 26.0742344, -80.150602199
-PHL, Philadelphia International Airport, Philadelphia, 39.8743959, -75.2424229
-LGA, LaGuardia Airport, New York, 40.7769271, -73.8739659
-BWI, Baltimore-Washington International Airport, Baltimore & Washington D.C, 39.181298, -76.668468
-SLC, Salt Lake City International Airport, Salt Lake City, 40.7899404, -111.9790706
-SAN, San Diego International Airport, San Diego, 32.732346, -117.196053
-IAD, Dulles International Airport, Dulles, 38.959131, -77.448114
-DCA, Reagan National Airport, Arlington, 38.8513, -77.0360
-TPA, Tampa International Airport, Tampa, 27.979168, -82.539337
-MDW, Chicago Midway International Airport, Chicago, 41.7867758, -87.7521884
+ATL, Hartsfield-Jackson Atlanta International Airport, Atlanta, America/New_York, 33.640411, -84.419853
+LAX, Los Angeles International Airport, Los Angeles, America/Los_Angeles, 33.942791, -118.410042
+ORD, Chicago O'Hare International Airport, Chicago, America/Chicago, 41.9803, -87.904724
+DFW, Dallas/Fort Worth International Airport, Dallas/Fort Worth, America/Chicago, 32.897480, -97.040443
+DEN, Denver International Airport, Denver, America/Denver, 139.712723, 35.673115
+JFK, John F. Kennedy International Airport, New York, America/New_York, 40.641766, -73.780968
+SFO, San Francisco International Airport, San Fransisco, America/Los_Angeles, 37.615223, -122.389977
+SEA, Seattle-Tacoma International Airport, Seattle, America/Los_Angeles, 47.443546, -122.301659
+LAS, Las Vegas Airport, Las Vegas, America/Los_Angeles, 36.086010, -115.153969
+CLT, Charlotte Douglas International Airport, Charlotte, America/New_York, 35.213890, -80.943054
+EWR, Newark Liberty International Airport, Newark, America/New_York, 40.6895314, -74.1744623
+PHX, Phoenix Sky Harbor International Airport, Phoenix, America/Phoenix, 33.437269, -112.007788
+IAH, George Bush Intercontinental Airport, Houston, America/Chicago, 29.9902199, -95.3367827
+MIA, Miami International Airport, Miami, America/New_York, 25.795865, -80.2870457
+BOS, Boston Logan International Airport, Boston, America/New_York, 42.366978, -71.022362
+MSP, Minneapolis−Saint Paul International Airport, Minneapolis, America/Chicago, 44.882763, -93.2104
+DTW, Detroit Metropolitan Wayne County Airport, Detroit, America/Detroit, 42.226282, -83.347057
+FLL, Fort Lauderdale-Hollywood International Airport, Fort Lauderdale, America/New_York, 26.0742344, -80.150602199
+PHL, Philadelphia International Airport, Philadelphia, America/New_York, 39.8743959, -75.2424229
+LGA, LaGuardia Airport, New York, America/New_York, 40.7769271, -73.8739659
+BWI, Baltimore-Washington International Airport, Baltimore & Washington D.C, America/New_York, 39.181298, -76.668468
+SLC, Salt Lake City International Airport, Salt Lake City, America/Denver, 40.7899404, -111.9790706
+SAN, San Diego International Airport, San Diego, America/Los_Angeles, 32.732346, -117.196053
+IAD, Dulles International Airport, Dulles, America/New_York, 38.959131, -77.448114
+DCA, Reagan National Airport, Arlington, America/New_York, 38.8513, -77.0360
+TPA, Tampa International Airport, Tampa, America/New_York, 27.979168, -82.539337
+MDW, Chicago Midway International Airport, Chicago, America/Chicago, 41.7867758, -87.7521884

@@ -85,6 +85,7 @@ public class Airport {
                 "id = '" + id + '\'' +
                 ", name = '" + name + '\'' +
                 ", city = '" + city + '\'' +
+                ", timezone = '" + timezone + '\'' +
                 ", latitude = " + latitude +
                 ", longitude = " + longitude +
                 '}' + "\n";
