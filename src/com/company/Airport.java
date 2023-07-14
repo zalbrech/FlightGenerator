@@ -9,6 +9,7 @@ public class Airport {
     String city;
     double latitude;
     double longitude;
+    String timezone;
     Map<String, Double> flightTimes;
 
     public Airport(String id, String name, String city, double latitude, double longitude) {
