@@ -1,17 +1,18 @@
 package com.company;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class Flight {
     private String origin;
     private String destination;
-    private LocalDateTime departure;
-    private LocalDateTime arrival;
+    private ZonedDateTime departure;
+    private ZonedDateTime arrival;
     private double duration;
     private double price;
     private int flightNumber;
 
-    public Flight(String origin, String destination, LocalDateTime departure, LocalDateTime arrival, double duration, double price, int flightNumber) {
+    public Flight(String origin, String destination, ZonedDateTime departure, ZonedDateTime arrival, double duration, double price, int flightNumber) {
         this.origin = origin;
         this.destination = destination;
         this.departure = departure;
@@ -37,19 +38,19 @@ public class Flight {
         this.destination = destination;
     }
 
-    public LocalDateTime getDeparture() {
+    public ZonedDateTime getDeparture() {
         return departure;
     }
 
-    public void setDeparture(LocalDateTime departure) {
+    public void setDeparture(ZonedDateTime departure) {
         this.departure = departure;
     }
 
-    public LocalDateTime getArrival() {
+    public ZonedDateTime getArrival() {
         return arrival;
     }
 
-    public void setArrival(LocalDateTime arrival) {
+    public void setArrival(ZonedDateTime arrival) {
         this.arrival = arrival;
     }
 
