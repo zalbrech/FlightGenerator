@@ -12,10 +12,11 @@ public class Airport {
     String timezone;
     Map<String, Double> flightTimes;
 
-    public Airport(String id, String name, String city, double latitude, double longitude) {
+    public Airport(String id, String name, String city, String timezone, double latitude, double longitude) {
         this.id = id;
         this.name = name;
         this.city = city;
+        this.timezone = timezone;
         this.latitude = latitude;
         this.longitude = longitude;
         flightTimes = new HashMap<>();
@@ -44,6 +45,14 @@ public class Airport {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getTimezone() {
+        return timezone;
+    }
+
+    public void setTimezone(String timezone) {
+        this.timezone = timezone;
     }
 
     public double getLatitude() {

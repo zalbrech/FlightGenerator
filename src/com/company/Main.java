@@ -30,13 +30,16 @@ public class Main {
                 String city = input.next();
 //                System.out.println(city);
 
+                String timezone = input.next();
+//                System.out.println(timezone);
+
                 double latitude = input.nextDouble();
 //                System.out.println(latitude);
 
                 double longitude = input.nextDouble();
 //                System.out.println(longitude+"\n\n");
 
-                Airport a = new Airport(id, name, city, latitude, longitude);
+                Airport a = new Airport(id, name, city, timezone, latitude, longitude);
                 if((str = br.readLine()) != null) {
                     line = str.split(",\\s");
                     for (String s : line) {
