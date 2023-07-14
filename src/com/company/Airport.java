@@ -1,5 +1,6 @@
 package com.company;
 
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,10 +10,10 @@ public class Airport {
     String city;
     double latitude;
     double longitude;
-    String timezone;
+    ZoneId timezone;
     Map<String, Double> flightTimes;
 
-    public Airport(String id, String name, String city, String timezone, double latitude, double longitude) {
+    public Airport(String id, String name, String city, ZoneId timezone, double latitude, double longitude) {
         this.id = id;
         this.name = name;
         this.city = city;
@@ -47,11 +48,11 @@ public class Airport {
         this.city = city;
     }
 
-    public String getTimezone() {
+    public ZoneId getTimezone() {
         return timezone;
     }
 
-    public void setTimezone(String timezone) {
+    public void setTimezone(ZoneId timezone) {
         this.timezone = timezone;
     }
 

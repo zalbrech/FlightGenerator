@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.Month;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 public class Main {
@@ -51,7 +54,6 @@ public class Main {
 //            System.out.println(abbreviationA + " => " +airportA.getFlightTimes());
 //        }
 
-
         // map to get flight by id
         Map<Integer, Flight> flightMap = generateFlights(10);
 
@@ -86,7 +88,7 @@ public class Main {
             String city = input.next();
 //                System.out.println(city);
 
-            String timezone = input.next();
+            ZoneId timezone = ZoneId.of(input.next());
 //                System.out.println(timezone);
 
             double latitude = input.nextDouble();
@@ -143,8 +145,34 @@ public class Main {
         public static Map<Integer, Flight> generateFlights(int N) {
             Set<Integer> flightNumbers = new HashSet<>();
             Map<Integer, Flight> map = new HashMap<>();
-
+            int a, b;
+            int len = airports.size();
             Airport[] airportArray = airports.values().toArray(new Airport[0]);
+            a = random.nextInt(len);
+            b = random.nextInt(len);
+            while(a == b) {
+                b = random.nextInt(len);
+            }
+
+            Airport originAirport = airportArray[a];
+            Airport destinationAirport = airportArray[b];
+
+            // 2023 and/or 2024?
+            // month = 1 - 12
+            // dayOfMonth = how to know if 30 or 31?
+            // hour = 5 -> 11
+            // minutes = 0 -> 59
+
+            int theYear = random.nextInt(2) == 1 ? 2024 : 2023;
+            int theMonth = random.nextInt(12)+1; // 1 - 12
+            int dayOfMonth = random.nextInt(Month.of(theMonth).length(theYear % 4 == 0))+1;
+            int theHour = random.nextInt(7) + 5; // 5 - 11
+            int theMinutes = random.nextInt(60);
+
+            ZonedDateTime departure = ZonedDateTime.of(theYear,theMonth,dayOfMonth,theHour,theMinutes,0,0, originAirport.getTimezone());
+
+
+
             return map;
         }
     }
