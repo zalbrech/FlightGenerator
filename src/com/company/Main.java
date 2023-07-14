@@ -102,7 +102,7 @@ public class Main {
                 line = str.split(",\\s");
                 for (String s : line) {
                     String[] item = s.split("=");
-                    a.getFlightTimes().put(item[0], Double.parseDouble(item[1]));
+                    a.getFlightTimes().put(item[0], Long.parseLong(item[1]));
                 }
             }
             return a;
@@ -135,10 +135,10 @@ public class Main {
         }
 
         // calculate flight time based on average speed of 500 mph as well as taxi time
-        public static double calculateFlightTime(Airport a, Airport b) {
+        public static long calculateFlightTime(Airport a, Airport b) {
             double airspeed = 500.0 / 60.0;
             double distance = calculateDistance(a.getLatitude(), b.getLatitude(), a.getLongitude(), b.getLongitude());
-            return Math.ceil((distance / airspeed) + 40);
+            return (long)Math.ceil((distance / airspeed) + 40);
         }
 
         // TODO: Not implemented
@@ -170,6 +170,8 @@ public class Main {
             int theMinutes = random.nextInt(60);
 
             ZonedDateTime departure = ZonedDateTime.of(theYear,theMonth,dayOfMonth,theHour,theMinutes,0,0, originAirport.getTimezone());
+            ZonedDateTime arrival = departure.plusMinutes(originAirport.getFlightTimes().get(destinationAirport.getId()));
+
 
 
 

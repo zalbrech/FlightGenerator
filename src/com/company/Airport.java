@@ -11,7 +11,7 @@ public class Airport {
     double latitude;
     double longitude;
     ZoneId timezone;
-    Map<String, Double> flightTimes;
+    Map<String, Long> flightTimes;
 
     public Airport(String id, String name, String city, ZoneId timezone, double latitude, double longitude) {
         this.id = id;
@@ -72,11 +72,11 @@ public class Airport {
         this.longitude = longitude;
     }
 
-    public Map<String, Double> getFlightTimes() {
+    public Map<String, Long> getFlightTimes() {
         return flightTimes;
     }
 
-    public void setFlightTimes(Map<String, Double> flightTimes) {
+    public void setFlightTimes(Map<String, Long> flightTimes) {
         this.flightTimes = flightTimes;
     }
 
