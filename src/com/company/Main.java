@@ -4,10 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.Month;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
     static final String WINDOWS_REGEX = ",\\s|\\r\\n";
@@ -34,25 +34,25 @@ public class Main {
             e.printStackTrace();
         }
 
-        printAirports();
-
-        for(Airport a : airports.values()) {
-            System.out.println(a.getFlightTimes());
-        }
+//        printAirports();
+//
+//        for(Airport a : airports.values()) {
+//            System.out.println(a.getFlightTimes());
+//        }
 
         //TODO: move to separate method -> populate flight times
-        for(Map.Entry<String, Airport> a : airports.entrySet()) {
-            String abbreviationA = a.getKey();
-            Airport airportA = a.getValue();
-            for(Map.Entry<String, Airport> b : airports.entrySet()) {
-                String abbreviationB = b.getKey();
-                Airport airportB = b.getValue();
-
-                if(abbreviationA.equals(abbreviationB) || airportA.getCity().equals(airportB.getCity())) continue;
-                airportA.getFlightTimes().put(abbreviationB, calculateFlightTime(airportA, airportB));
-            }
-            System.out.println(abbreviationA + " => " +airportA.getFlightTimes());
-        }
+//        for(Map.Entry<String, Airport> a : airports.entrySet()) {
+//            String abbreviationA = a.getKey();
+//            Airport airportA = a.getValue();
+//            for(Map.Entry<String, Airport> b : airports.entrySet()) {
+//                String abbreviationB = b.getKey();
+//                Airport airportB = b.getValue();
+//
+//                if(abbreviationA.equals(abbreviationB) || airportA.getCity().equals(airportB.getCity())) continue;
+//                airportA.getFlightTimes().put(abbreviationB, calculateFlightTime(airportA, airportB));
+//            }
+//            System.out.println(abbreviationA + " => " +airportA.getFlightTimes());
+//        }
 
         // map to get flight by id
         Map<Integer, Flight> flightMap = generateFlights(10);
@@ -138,7 +138,7 @@ public class Main {
         public static long calculateFlightTime(Airport a, Airport b) {
             double airspeed = 500.0 / 60.0;
             double distance = calculateDistance(a.getLatitude(), b.getLatitude(), a.getLongitude(), b.getLongitude());
-            return (long)Math.round((distance / airspeed) + 40);
+            return Math.round((distance / airspeed) + 40);
         }
 
         // TODO: Not implemented
@@ -163,14 +163,14 @@ public class Main {
             // hour = 5 -> 11
             // minutes = 0 -> 59
 
-            int theYear = random.nextInt(2) == 1 ? 2024 : 2023;
-            int theMonth = random.nextInt(12)+1; // 1 - 12
-            int dayOfMonth = random.nextInt(Month.of(theMonth).length(theYear % 4 == 0))+1;
-            int theHour = random.nextInt(7) + 5; // 5 - 11
-            int theMinutes = random.nextInt(60);
+            LocalDate startDate = LocalDate.now();
+            LocalDate endDate = startDate.plusYears(2);
 
+            LocalTime startTime = LocalTime.of(5,0);
+            LocalTime endTime = LocalTime.of(22,0);
+
+            ZonedDateTime departure = ZonedDateTime.of(createRandomDate(startDate, endDate), createRandomTime(startTime, endTime), originAirport.getTimezone());
             long theDuration = originAirport.getFlightTimes().get(destinationAirport.getId());
-            ZonedDateTime departure = ZonedDateTime.of(theYear,theMonth,dayOfMonth,theHour,theMinutes,0,0, originAirport.getTimezone());
             ZonedDateTime arrival = departure.withZoneSameInstant(destinationAirport.getTimezone()).plusMinutes(theDuration);
 
             System.out.println(originAirport.getName() + "(" + originAirport.getId() + ") => " +departure);
@@ -178,9 +178,25 @@ public class Main {
             System.out.println(destinationAirport.getName() + "(" + destinationAirport.getId() + ") => " + arrival);
 
 
-
-
             return map;
+        }
+
+        public static LocalDate createRandomDate(LocalDate startInclusive, LocalDate endInclusive) {
+            long startDate = startInclusive.toEpochDay();
+            long endDate = endInclusive.toEpochDay();
+
+            long randomDate = startDate + (long) (random.nextDouble() * (endDate - startDate));
+
+            return LocalDate.ofEpochDay(randomDate);
+        }
+
+        public static LocalTime createRandomTime(LocalTime startInclusive, LocalTime endInclusive) {
+            long startTime = startInclusive.toSecondOfDay();
+            long endTime = endInclusive.toSecondOfDay();
+
+            long randomTime = startTime + (long) (random.nextDouble() * (endTime - startTime));
+
+            return LocalTime.ofSecondOfDay(randomTime).truncatedTo(ChronoUnit.MINUTES);
         }
     }
 
