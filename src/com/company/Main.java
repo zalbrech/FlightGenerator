@@ -41,18 +41,18 @@ public class Main {
         }
 
         //TODO: move to separate method -> populate flight times
-//        for(Map.Entry<String, Airport> a : airports.entrySet()) {
-//            String abbreviationA = a.getKey();
-//            Airport airportA = a.getValue();
-//            for(Map.Entry<String, Airport> b : airports.entrySet()) {
-//                String abbreviationB = b.getKey();
-//                Airport airportB = b.getValue();
-//
-//                if(abbreviationA.equals(abbreviationB) || airportA.getCity().equals(airportB.getCity())) continue;
-//                airportA.getFlightTimes().put(abbreviationB, calculateFlightTime(airportA, airportB));
-//            }
-//            System.out.println(abbreviationA + " => " +airportA.getFlightTimes());
-//        }
+        for(Map.Entry<String, Airport> a : airports.entrySet()) {
+            String abbreviationA = a.getKey();
+            Airport airportA = a.getValue();
+            for(Map.Entry<String, Airport> b : airports.entrySet()) {
+                String abbreviationB = b.getKey();
+                Airport airportB = b.getValue();
+
+                if(abbreviationA.equals(abbreviationB) || airportA.getCity().equals(airportB.getCity())) continue;
+                airportA.getFlightTimes().put(abbreviationB, calculateFlightTime(airportA, airportB));
+            }
+            System.out.println(abbreviationA + " => " +airportA.getFlightTimes());
+        }
 
         // map to get flight by id
         Map<Integer, Flight> flightMap = generateFlights(10);
@@ -138,7 +138,7 @@ public class Main {
         public static long calculateFlightTime(Airport a, Airport b) {
             double airspeed = 500.0 / 60.0;
             double distance = calculateDistance(a.getLatitude(), b.getLatitude(), a.getLongitude(), b.getLongitude());
-            return (long)Math.ceil((distance / airspeed) + 40);
+            return (long)Math.round((distance / airspeed) + 40);
         }
 
         // TODO: Not implemented
@@ -169,8 +169,13 @@ public class Main {
             int theHour = random.nextInt(7) + 5; // 5 - 11
             int theMinutes = random.nextInt(60);
 
+            long theDuration = originAirport.getFlightTimes().get(destinationAirport.getId());
             ZonedDateTime departure = ZonedDateTime.of(theYear,theMonth,dayOfMonth,theHour,theMinutes,0,0, originAirport.getTimezone());
-            ZonedDateTime arrival = departure.plusMinutes(originAirport.getFlightTimes().get(destinationAirport.getId()));
+            ZonedDateTime arrival = departure.withZoneSameInstant(destinationAirport.getTimezone()).plusMinutes(theDuration);
+
+            System.out.println(originAirport.getName() + "(" + originAirport.getId() + ") => " +departure);
+            System.out.println("Duration in minutes => " + theDuration);
+            System.out.println(destinationAirport.getName() + "(" + destinationAirport.getId() + ") => " + arrival);
 
 
 
