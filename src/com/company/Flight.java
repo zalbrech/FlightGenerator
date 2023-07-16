@@ -1,18 +1,18 @@
 package com.company;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 
-public class Flight {
-    private String origin;
-    private String destination;
+public class Flight implements Serializable {
+    private Airport origin;
+    private Airport destination;
     private ZonedDateTime departure;
     private ZonedDateTime arrival;
     private double duration;
     private double price;
     private int flightNumber;
 
-    public Flight(String origin, String destination, ZonedDateTime departure, ZonedDateTime arrival, double duration, double price, int flightNumber) {
+    public Flight(Airport origin, Airport destination, ZonedDateTime departure, ZonedDateTime arrival, double duration, double price, int flightNumber) {
         this.origin = origin;
         this.destination = destination;
         this.departure = departure;
@@ -22,19 +22,19 @@ public class Flight {
         this.flightNumber = flightNumber;
     }
 
-    public String getOrigin() {
+    public Airport getOrigin() {
         return origin;
     }
 
-    public void setOrigin(String origin) {
+    public void setOrigin(Airport origin) {
         this.origin = origin;
     }
 
-    public String getDestination() {
+    public Airport getDestination() {
         return destination;
     }
 
-    public void setDestination(String destination) {
+    public void setDestination(Airport destination) {
         this.destination = destination;
     }
 

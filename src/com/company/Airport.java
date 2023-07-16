@@ -1,17 +1,18 @@
 package com.company;
 
+import java.io.Serializable;
 import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Airport {
-    String id;
-    String name;
-    String city;
-    double latitude;
-    double longitude;
-    ZoneId timezone;
-    Map<String, Long> flightTimes;
+public class Airport implements Serializable {
+    private String id;
+    private String name;
+    private String city;
+    private double latitude;
+    private double longitude;
+    private ZoneId timezone;
+    private Map<String, Long> flightTimes;
 
     public Airport(String id, String name, String city, ZoneId timezone, double latitude, double longitude) {
         this.id = id;
