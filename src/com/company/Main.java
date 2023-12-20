@@ -1,33 +1,30 @@
 package com.company;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class Main {
-    static final String WINDOWS_REGEX = ",\\s|\\r\\n";
-    static final String MAC_REGEX = ",\\s|\\n";
+    static final java.lang.String WINDOWS_REGEX = ",\\s|\\r\\n";
+    static final java.lang.String MAC_REGEX = ",\\s|\\n";
     static final double EARTH_RADIUS_IN_MILES = 3958.8; // Radius of the Earth in miles
     static Random random = new Random();
-    private static final Map<String, Airport> airportMap = new HashMap<>();
-    private static final List<String> airportList = new LinkedList<>();
+    private static final Map<java.lang.String, String> airportMap = new HashMap<>();
+    private static final List<java.lang.String> airportList = new LinkedList<>();
 
-    public static void main(String[] args) {
+    public static void main(java.lang.String[] args) {
 
         try (Scanner input = new Scanner(new File("src/info.txt")).useLocale(Locale.US);
              BufferedReader br = new BufferedReader(new FileReader("src/flightTimes.txt"))) {
-            String theDelimiter = detectOS();
+            java.lang.String theDelimiter = detectOS();
             input.useDelimiter(theDelimiter); // comma + space delimiter
-            String str;
-            String[] line;
+            java.lang.String str;
+            java.lang.String[] line;
 
             while (input.hasNext()) {
-                Airport a = createAirportFromFile(input, br);
-                String id = a.getId();
+                String a = createAirportFromFile(input, br);
+                java.lang.String id = a.getId();
 
                 airportList.add(id);
                 airportMap.put(id, a);
@@ -85,36 +82,23 @@ public class Main {
 //        }
 
         // map to get flight by id
-        Map<Integer, Flight> flightMap = generateFlights(10000);
+        Map<Integer, Flight> flightMap = generateFlights(10);
 
-
-//        try(FileReader fileReader = new FileReader("src/info.txt")) {
-//            }
-//        catch(Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-
-
-//        try(FileWriter fileWriter = new FileWriter("src/data.sql")) {
-//
-//        } catch(Exception e) {
-//            e.printStackTrace();
-//          }
+        createDataFile(flightMap);
     }
 
     // Creates Airport object with data from file
     // TODO: Overload to allow for manual creation. Will need to move populateFlightTimes to another method
-    public static Airport createAirportFromFile(Scanner input, BufferedReader br) throws IOException {
-        String str = "";
-        String[] line;
-        String id = input.next();
+    public static String createAirportFromFile(Scanner input, BufferedReader br) throws IOException {
+        java.lang.String str = "";
+        java.lang.String[] line;
+        java.lang.String id = input.next();
 //                System.out.println(id);
 
-        String name = input.next();
+        java.lang.String name = input.next();
 //                System.out.println(name);
 
-        String city = input.next();
+        java.lang.String city = input.next();
 //                System.out.println(city);
 
         ZoneId timezone = ZoneId.of(input.next());
@@ -125,12 +109,12 @@ public class Main {
 
         double longitude = input.nextDouble();
 //                System.out.println(longitude+"\n\n");
-        Airport a = new Airport(id, name, city, timezone, latitude, longitude);
+        String a = new String(id, name, city, timezone, latitude, longitude);
 //            System.out.println(a);
         if ((str = br.readLine()) != null) {
             line = str.split(",\\s");
-            for (String s : line) {
-                String[] item = s.split("=");
+            for (java.lang.String s : line) {
+                java.lang.String[] item = s.split("=");
                 a.getFlightTimes().put(item[0], Long.parseLong(item[1]));
 //                    System.out.println(a.getId() + " -> " + item[0] + " " + Long.parseLong(item[1]));
             }
@@ -140,13 +124,13 @@ public class Main {
     }
 
     public static void printAirports() {
-        for (Airport a : airportMap.values()) {
+        for (String a : airportMap.values()) {
             System.out.println(a);
         }
     }
 
     // used to initialize proper regex to handle difference in line ending syntax
-    public static String detectOS() {
+    public static java.lang.String detectOS() {
         return System.getProperty("os.name").charAt(0) == 'W' ? WINDOWS_REGEX : MAC_REGEX;
     }
 
@@ -165,7 +149,7 @@ public class Main {
     }
 
     // calculate flight time based on average speed of 500 mph as well as taxi time
-    public static long calculateFlightTime(Airport a, Airport b) {
+    public static long calculateFlightTime(String a, String b) {
         double airspeed = 500.0 / 60.0;
         double distance = calculateDistance(a.getLatitude(), b.getLatitude(), a.getLongitude(), b.getLongitude());
         return Math.round((distance / airspeed) + 40);
@@ -178,7 +162,7 @@ public class Main {
         Map<Integer, Flight> map = new HashMap<>();
         int a, b;
         int len = airportMap.size();
-        Airport[] airportArray = airportMap.values().toArray(new Airport[0]);
+        String[] airportArray = airportMap.values().toArray(new String[0]);
 
         for (int i = 0; i < N; i++) {
             System.out.println(i);
@@ -188,10 +172,11 @@ public class Main {
                 b = random.nextInt(len);
             }
 
-            Airport originAirport = airportArray[a];
-            System.out.println(originAirport.getId());
-            Airport destinationAirport = airportArray[b];
-            System.out.println(destinationAirport.getId());
+            String originAirport = airportArray[a];
+//            System.out.println(originAirport.getId());
+
+            String destinationAirport = airportArray[b];
+//            System.out.println(destinationAirport.getId());
 
             if (originAirport.getFlightTimes().get(destinationAirport.getId()) == null ||
                     destinationAirport.getFlightTimes().get(originAirport.getId()) == null) {
@@ -204,18 +189,19 @@ public class Main {
             LocalTime startTime = LocalTime.of(5, 0);
             LocalTime endTime = LocalTime.of(22, 0);
 
-            ZonedDateTime departure = ZonedDateTime.of(createRandomDate(startDate, endDate),
+            ZonedDateTime theDepartureTime = ZonedDateTime.of(createRandomDate(startDate, endDate),
                     createRandomTime(startTime, endTime), originAirport.getTimezone());
             long theDuration = originAirport.getFlightTimes().get(destinationAirport.getId());
-            System.out.println(theDuration);
-            ZonedDateTime arrival = departure.withZoneSameInstant(destinationAirport.getTimezone()).plusMinutes(theDuration);
+//            System.out.println(theDuration);
 
-            System.out.println(originAirport.getName() + "(" + originAirport.getId() + ") => " + departure);
-            System.out.println("Duration in minutes => " + theDuration);
-            System.out.println(destinationAirport.getName() + "(" + destinationAirport.getId() + ") => " + arrival);
+            ZonedDateTime theArrivalTime = theDepartureTime.withZoneSameInstant(destinationAirport.getTimezone()).plusMinutes(theDuration);
 
-            double thePrice = generatePrice(theDuration, departure.getDayOfYear());
-            System.out.println("price = " + thePrice);
+//            System.out.println(originAirport.getName() + "(" + originAirport.getId() + ") => " + theDepartureTime);
+//            System.out.println("Duration in minutes => " + theDuration);
+//            System.out.println(destinationAirport.getName() + "(" + destinationAirport.getId() + ") => " + theArrivalTime);
+
+            double thePrice = generatePrice(theDuration, theDepartureTime.getDayOfYear());
+//            System.out.println("price = " + thePrice);
             prices.add(thePrice);
 
             int flightNumber = generateFlightNumber(90000);
@@ -223,7 +209,7 @@ public class Main {
                 flightNumber = generateFlightNumber(90000);
             }
 
-            Flight flight = new Flight(originAirport,destinationAirport,departure,arrival,theDuration,thePrice,flightNumber);
+            Flight flight = new Flight(originAirport,destinationAirport,theDepartureTime,theArrivalTime,theDuration,thePrice,flightNumber);
 
             map.put(flightNumber,flight);
         }
@@ -232,6 +218,14 @@ public class Main {
 //        System.out.println(prices);
 
         return map;
+    }
+
+    public static void createDataFile(Map<Integer, Flight> map) {
+        try(FileWriter writer = new FileWriter("src/data.sql")) {
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // create random date between two defined bounds

@@ -4,15 +4,15 @@ import java.io.Serializable;
 import java.time.ZonedDateTime;
 
 public class Flight implements Serializable {
-    private Airport origin;
-    private Airport destination;
+    private String origin;
+    private String destination;
     private ZonedDateTime departure;
     private ZonedDateTime arrival;
     private double duration;
     private double price;
     private int flightNumber;
 
-    public Flight(Airport origin, Airport destination, ZonedDateTime departure, ZonedDateTime arrival, double duration, double price, int flightNumber) {
+    public Flight(String origin, String destination, ZonedDateTime departure, ZonedDateTime arrival, double duration, double price, int flightNumber) {
         this.origin = origin;
         this.destination = destination;
         this.departure = departure;
@@ -22,19 +22,19 @@ public class Flight implements Serializable {
         this.flightNumber = flightNumber;
     }
 
-    public Airport getOrigin() {
+    public String getOrigin() {
         return origin;
     }
 
-    public void setOrigin(Airport origin) {
+    public void setOrigin(String origin) {
         this.origin = origin;
     }
 
-    public Airport getDestination() {
+    public String getDestination() {
         return destination;
     }
 
-    public void setDestination(Airport destination) {
+    public void setDestination(String destination) {
         this.destination = destination;
     }
 
@@ -76,5 +76,18 @@ public class Flight implements Serializable {
 
     public void setFlightNumber(int flightNumber) {
         this.flightNumber = flightNumber;
+    }
+
+    @Override
+    public java.lang.String toString() {
+        return "Flight{" +
+                "origin = " + origin +
+                ", destination = " + destination +
+                ", departure = " + departure +
+                ", arrival = " + arrival +
+                ", duration = " + duration +
+                ", price = " + price +
+                ", flightNumber = " + flightNumber +
+                '}';
     }
 }

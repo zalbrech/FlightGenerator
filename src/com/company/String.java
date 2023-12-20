@@ -5,16 +5,16 @@ import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Airport implements Serializable {
-    private String id;
-    private String name;
-    private String city;
+public class String implements Serializable {
+    private java.lang.String id;
+    private java.lang.String name;
+    private java.lang.String city;
     private double latitude;
     private double longitude;
     private ZoneId timezone;
-    private Map<String, Long> flightTimes;
+    private Map<java.lang.String, Long> flightTimes;
 
-    public Airport(String id, String name, String city, ZoneId timezone, double latitude, double longitude) {
+    public String(java.lang.String id, java.lang.String name, java.lang.String city, ZoneId timezone, double latitude, double longitude) {
         this.id = id;
         this.name = name;
         this.city = city;
@@ -25,27 +25,27 @@ public class Airport implements Serializable {
     }
 
     // Getters and Setters
-    public String getId() {
+    public java.lang.String getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(java.lang.String id) {
         this.id = id;
     }
 
-    public String getName() {
+    public java.lang.String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(java.lang.String name) {
         this.name = name;
     }
 
-    public String getCity() {
+    public java.lang.String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(java.lang.String city) {
         this.city = city;
     }
 
@@ -73,16 +73,16 @@ public class Airport implements Serializable {
         this.longitude = longitude;
     }
 
-    public Map<String, Long> getFlightTimes() {
+    public Map<java.lang.String, Long> getFlightTimes() {
         return flightTimes;
     }
 
-    public void setFlightTimes(Map<String, Long> flightTimes) {
+    public void setFlightTimes(Map<java.lang.String, Long> flightTimes) {
         this.flightTimes = flightTimes;
     }
 
     @Override
-    public String toString() {
+    public java.lang.String toString() {
         return "Airport{" +
                 "id = '" + id + '\'' +
                 ", name = '" + name + '\'' +
